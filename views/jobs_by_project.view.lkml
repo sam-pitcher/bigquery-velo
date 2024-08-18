@@ -279,34 +279,9 @@ view: jobs_by_project {
     sql: ${TABLE}.timeline ;;
   }
 
-  dimension: total_bytes_billed {
-    type: number
-    sql: ${TABLE}.total_bytes_billed ;;
-  }
-
-  dimension: total_bytes_processed {
-    type: number
-    sql: ${TABLE}.total_bytes_processed ;;
-  }
-
-  dimension: total_modified_partitions {
-    type: number
-    sql: ${TABLE}.total_modified_partitions ;;
-  }
-
-  dimension: total_slot_ms {
-    type: number
-    sql: ${TABLE}.total_slot_ms ;;
-  }
-
   dimension: transaction_id {
     type: string
     sql: ${TABLE}.transaction_id ;;
-  }
-
-  dimension: transferred_bytes {
-    type: number
-    sql: ${TABLE}.transferred_bytes ;;
   }
 
   dimension: user_email {
@@ -314,9 +289,67 @@ view: jobs_by_project {
     sql: ${TABLE}.user_email ;;
   }
 
-  measure: count {
+  # dimensions for measures
+
+  dimension: bytes_processed {
+    hidden: yes
+    type: number
+    sql: ${TABLE}.total_bytes_processed ;;
+  }
+
+  dimension: slot_ms {
+    hidden: yes
+    type: number
+    sql: ${TABLE}.total_slot_ms ;;
+  }
+
+  dimension: bytes_billed {
+    hidden: yes
+    type: number
+    sql: ${TABLE}.total_bytes_billed ;;
+  }
+
+  dimension: modified_partitions {
+    hidden: yes
+    type: number
+    sql: ${TABLE}.total_modified_partitions ;;
+  }
+
+  dimension: transferred_bytes {
+    hidden: yes
+    type: number
+    sql: ${TABLE}.transferred_bytes ;;
+  }
+
+  # measures
+
+  measure: total_bytes_processed {
+    type: sum
+    sql: ${bytes_processed} ;;
+  }
+
+  measure: total_slot_ms {
+    type: sum
+    sql: ${slot_ms} ;;
+  }
+
+  measure: total_bytes_billed {
+    type: sum
+    sql: ${bytes_billed} ;;
+  }
+
+  measure: total_modified_partitions {
+    type: sum
+    sql: ${modified_partitions} ;;
+  }
+
+  measure: total_transferred_bytes {
+    type: sum
+    sql: ${transferred_bytes} ;;
+  }
+
+  measure: job_count {
     type: count
-    drill_fields: []
   }
 }
 
