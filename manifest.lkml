@@ -1,6 +1,6 @@
-# project_name: "bigquery-velo"
+project_name: "bigquery-velo"
 
-application: bigquery-velo-ext {
+application: bigquery-velo {
   label: "BigQuery Velo"
   url: "https://localhost:8080/bundle.js"
   # file: "bundle.js
