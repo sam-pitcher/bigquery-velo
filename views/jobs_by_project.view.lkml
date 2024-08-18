@@ -2,6 +2,12 @@ view: jobs_by_project {
   sql_table_name: `sam-pitcher-playground.bigquery_velo.jobs_by_project`
     ;;
 
+  dimension: job_id {
+    primary_key: yes
+    type: string
+    sql: ${TABLE}.job_id ;;
+  }
+
   dimension: bi_engine_statistics__acceleration_mode {
     type: string
     sql: ${TABLE}.bi_engine_statistics.acceleration_mode ;;
@@ -136,11 +142,6 @@ view: jobs_by_project {
     sql: ${TABLE}.job_creation_reason.code ;;
     group_label: "Job Creation Reason"
     group_item_label: "Code"
-  }
-
-  dimension: job_id {
-    type: string
-    sql: ${TABLE}.job_id ;;
   }
 
   dimension: job_stages {
