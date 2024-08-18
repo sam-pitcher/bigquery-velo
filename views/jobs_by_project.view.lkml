@@ -8,6 +8,54 @@ view: jobs_by_project {
     sql: ${TABLE}.job_id ;;
   }
 
+  dimension_group: creation {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.creation_time ;;
+  }
+
+  dimension_group: start {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.start_time ;;
+  }
+
+  dimension_group: end {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.end_time ;;
+  }
+
+  dimension_group: query {
+    type: duration
+    sql_start: ${start_raw} ;;
+    sql_end: ${end_raw} ;;
+  }
+
   dimension: bi_engine_statistics__acceleration_mode {
     type: string
     sql: ${TABLE}.bi_engine_statistics.acceleration_mode ;;
@@ -32,20 +80,6 @@ view: jobs_by_project {
   dimension: cache_hit {
     type: yesno
     sql: ${TABLE}.cache_hit ;;
-  }
-
-  dimension_group: creation {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}.creation_time ;;
   }
 
   dimension: destination_table__dataset_id {
@@ -93,20 +127,6 @@ view: jobs_by_project {
   dimension: edition {
     type: string
     sql: ${TABLE}.edition ;;
-  }
-
-  dimension_group: end {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}.end_time ;;
   }
 
   dimension: error_result__debug_info {
@@ -250,20 +270,6 @@ view: jobs_by_project {
     group_item_label: "Session ID"
   }
 
-  dimension_group: start {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}.start_time ;;
-  }
-
   dimension: state {
     type: string
     sql: ${TABLE}.state ;;
@@ -346,6 +352,11 @@ view: jobs_by_project {
   measure: total_transferred_bytes {
     type: sum
     sql: ${transferred_bytes} ;;
+  }
+
+  measure: total_query_runtime_seconds {
+    type: sum
+    sql: ${seconds_query} ;;
   }
 
   measure: job_count {
