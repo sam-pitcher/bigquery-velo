@@ -94,6 +94,13 @@ explore: jobs_by_project {
     relationship: many_to_one
   }
 
+  # LOOKER HISTORY
+
+  join: looker_history {
+    sql_on: ${jobs_by_project__labels.looker_history_slug} = ${looker_history.history_slug} ;;
+    relationship: many_to_one
+  }
+
   # PARAMETERS
 
   join: parameters {}
@@ -132,4 +139,23 @@ explore: quantile_statistics {
 
   join: parameters {}
 
+}
+
+
+
+
+
+explore: looker_history {
+  join: jobs_by_project {
+    sql_on: ${jobs_by_project__labels.looker_history_slug} = ${looker_history.history_slug} ;;
+    relationship: many_to_one
+  }
+
+  join: jobs_by_project__labels {
+    view_label: "Jobs By Project: Labels"
+    sql: LEFT JOIN UNNEST(${jobs_by_project.labels}) as jobs_by_project__labels ;;
+    relationship: one_to_many
+  }
+
+  join: parameters {}
 }

@@ -423,6 +423,11 @@ view: jobs_by_project__labels {
     type: string
     sql: value ;;
   }
+
+  dimension: looker_history_slug {
+    type: string
+    sql: case when ${key} = 'looker-context-history_slug' then ${value} end ;;
+  }
 }
 
 view: jobs_by_project__timeline {
