@@ -3,6 +3,7 @@
   title: Materialized Views
   layout: newspaper
   preferred_viewer: dashboards-next
+  load_configuration: wait
   description: ''
   preferred_slug: u3mS3jCDwxBpOprinl3ww9
   elements:
@@ -53,6 +54,8 @@
       Project ID: jobs_by_project__referenced_tables.project_id
       Dataset ID: jobs_by_project__referenced_tables.dataset_id
       Table ID: jobs_by_project__referenced_tables.table_id
+      Project Name: parameters.project_name
+      Region: parameters.region
     row: 0
     col: 0
     width: 24
@@ -107,6 +110,8 @@
       Project ID: jobs_by_project__referenced_tables.project_id
       Dataset ID: jobs_by_project__referenced_tables.dataset_id
       Table ID: jobs_by_project__referenced_tables.table_id
+      Project Name: parameters.project_name
+      Region: parameters.region
     row: 21
     col: 16
     width: 8
@@ -171,6 +176,8 @@
       Project ID: jobs_by_project__referenced_tables.project_id
       Dataset ID: jobs_by_project__referenced_tables.dataset_id
       Table ID: jobs_by_project__referenced_tables.table_id
+      Project Name: parameters.project_name
+      Region: parameters.region
     row: 15
     col: 16
     width: 8
@@ -219,11 +226,39 @@
     listen:
       User Email: jobs_by_project.user_email
       Creation Time: jobs_by_project.creation_time
+      Project Name: parameters.project_name
+      Region: parameters.region
     row: 15
     col: 0
     width: 16
     height: 10
   filters:
+  - name: Project Name
+    title: Project Name
+    type: field_filter
+    default_value: ''
+    allow_multiple_values: false
+    required: true
+    ui_config:
+      type: advanced
+      display: popover
+    model: bigquery-velo
+    explore: jobs_by_project
+    listens_to_filters: []
+    field: parameters.project_name
+  - name: Region
+    title: Region
+    type: field_filter
+    default_value: ''
+    allow_multiple_values: true
+    required: true
+    ui_config:
+      type: button_toggles
+      display: inline
+    model: bigquery-velo
+    explore: jobs_by_project
+    listens_to_filters: []
+    field: parameters.region
   - name: Creation Time
     title: Creation Time
     type: field_filter

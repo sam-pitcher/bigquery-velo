@@ -29,6 +29,7 @@ FROM
           and {% condition jobs_by_project.creation_time %} creation_time {% endcondition %}
           and {% condition jobs_by_project.creation_date %} creation_time {% endcondition %}
           and {% condition jobs_by_project.job_id %} job_id {% endcondition %}
+          and {% condition jobs_by_project.query %} query {% endcondition %}
           order by total_slot_ms desc
     ),
     STRUCT(

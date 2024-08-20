@@ -1,10 +1,20 @@
 view: jobs_by_project {
-  sql_table_name: `sam-pitcher-playground.bigquery_velo.jobs_by_project`;;
+  # sql_table_name: `sam-pitcher-playground.bigquery_velo.jobs_by_project`;;
+  derived_table: {
+    sql: select * from `{{ _filters['parameters.project_name'] | sql_quote | replace: "'", "" }}`.`region-{{ _filters['parameters.region'] | sql_quote | replace: "'", "" }}`.INFORMATION_SCHEMA.JOBS_BY_PROJECT ;;
+  }
 
   dimension: job_id {
     primary_key: yes
     type: string
+    group_label: "Job Information"
     sql: ${TABLE}.job_id ;;
+  }
+
+  dimension: truncated_job_id {
+    type: string
+    group_label: "Job Information"
+    sql: REGEXP_EXTRACT(${job_id}, r'^([^_]+)_.*$') ;;
   }
 
   dimension_group: creation {
@@ -169,6 +179,7 @@ view: jobs_by_project {
   }
 
   dimension: job_type {
+    group_label: "Job Information"
     type: string
     sql: ${TABLE}.job_type ;;
   }
@@ -186,6 +197,7 @@ view: jobs_by_project {
   }
 
   dimension: parent_job_id {
+    group_label: "Job Information"
     type: string
     sql: ${TABLE}.parent_job_id ;;
   }

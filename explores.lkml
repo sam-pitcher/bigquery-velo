@@ -1,6 +1,13 @@
 include: "views/*.view"
 explore: jobs_by_project {
 
+  always_filter: {
+    filters: [
+      parameters.project_name: "sam-pitcher-playground",
+      parameters.region: "us"
+    ]
+  }
+
   join: jobs_by_project__labels {
     view_label: "Jobs By Project: Labels"
     sql: LEFT JOIN UNNEST(${jobs_by_project.labels}) as jobs_by_project__labels ;;
@@ -86,4 +93,43 @@ explore: jobs_by_project {
     sql_on: ${jobs_by_project.job_id} = ${gemini_suggestions.job_id} ;;
     relationship: many_to_one
   }
+
+  # PARAMETERS
+
+  join: parameters {}
+
+}
+
+
+
+
+
+explore: jobs_timeline_by_project {
+
+  always_filter: {
+    filters: [
+      parameters.project_name: "sam-pitcher-playground",
+      parameters.region: "us"
+    ]
+  }
+
+  join: parameters {}
+
+}
+
+
+
+
+
+explore: quantile_statistics {
+
+  always_filter: {
+    filters: [
+      parameters.project_name: "sam-pitcher-playground",
+      parameters.region: "us"
+    ]
+  }
+
+  join: parameters {}
+
 }
