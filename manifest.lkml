@@ -5,6 +5,8 @@ application: bigquery-velo {
   url: "https://localhost:8080/bundle.js"
   # file: "bundle.js
   entitlements: {
-    core_api_methods: ["me", "run_query", "dashboard", "lookml_model_explore", "query_for_slug"]
+    use_embeds: yes
+    use_iframes: yes
+    core_api_methods: ["me", "run_query", "run_inline_query", "create_query", "dashboard", "lookml_model_explore", "query_for_slug"]
   }
 }

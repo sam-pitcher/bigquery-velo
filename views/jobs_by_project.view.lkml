@@ -1,6 +1,5 @@
 view: jobs_by_project {
-  sql_table_name: `sam-pitcher-playground.bigquery_velo.jobs_by_project`
-    ;;
+  sql_table_name: `sam-pitcher-playground.bigquery_velo.jobs_by_project`;;
 
   dimension: job_id {
     primary_key: yes
@@ -330,13 +329,45 @@ view: jobs_by_project {
   # measures
 
   measure: total_bytes_processed {
+    group_label: "Bytes Processed"
     type: sum
     sql: ${bytes_processed} ;;
+    value_format_name: decimal_0
+  }
+
+  measure: total_mb_processed {
+    group_label: "Bytes Processed"
+    type: sum
+    sql: ${bytes_processed} / 1000000.0 ;;
+    value_format_name: decimal_0
+  }
+
+  measure: total_gb_processed {
+    group_label: "Bytes Processed"
+    type: sum
+    sql: ${bytes_processed} / 1000000000.0 ;;
+    value_format_name: decimal_2
+  }
+
+  measure: total_tb_processed {
+    group_label: "Bytes Processed"
+    type: sum
+    sql: ${bytes_processed} / 1000000000000.0 ;;
+    value_format_name: decimal_3
   }
 
   measure: total_slot_ms {
+    group_label: "Slot Duration"
     type: sum
     sql: ${slot_ms} ;;
+    value_format_name: decimal_0
+  }
+
+  measure: total_slot_seconds {
+    group_label: "Slot Duration"
+    type: sum
+    sql: ${slot_ms} / 1000.0 ;;
+    value_format_name: decimal_0
   }
 
   measure: total_bytes_billed {
@@ -587,15 +618,15 @@ view: jobs_by_project__job_stages {
 }
 
 view: jobs_by_project__referenced_tables {
-  dimension: dataset_id {
-    type: string
-    sql: dataset_id ;;
-  }
-
   dimension: jobs_by_project__referenced_tables {
     type: string
     hidden: yes
     sql: jobs_by_project__referenced_tables ;;
+  }
+
+  dimension: dataset_id {
+    type: string
+    sql: dataset_id ;;
   }
 
   dimension: project_id {
@@ -606,6 +637,12 @@ view: jobs_by_project__referenced_tables {
   dimension: table_id {
     type: string
     sql: table_id ;;
+  }
+
+  dimension: table_reference__full_table_name {
+    label: "Full Referenced Table Name"
+    type: string
+    sql: concat(${project_id}, '-', ${dataset_id}, '-', ${table_id}) ;;
   }
 }
 
@@ -682,6 +719,13 @@ view: jobs_by_project__materialized_view_statistics__materialized_view {
     sql: ${TABLE}.table_reference.table_id ;;
     group_label: "Table Reference"
     group_item_label: "Table ID"
+  }
+
+  dimension: table_reference__full_table_name {
+    group_label: "Table Reference"
+    group_item_label: "Full MV Table Name"
+    type: string
+    sql: concat(${table_reference__project_id}, '-', ${table_reference__dataset_id}, '-', ${table_reference__table_id}) ;;
   }
 }
 

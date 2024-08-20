@@ -3,7 +3,7 @@
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
-  preferred_slug: jobs_overview
+  preferred_slug: u3mS3jCDwxBpOprinl3ww1
   elements:
   - title: Jobs Overview
     name: Jobs Overview

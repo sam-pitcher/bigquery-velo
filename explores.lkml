@@ -78,4 +78,12 @@ explore: jobs_by_project {
     sql: LEFT JOIN UNNEST(${jobs_by_project__query_info__performance_insights__stage_performance_standalone_insights.high_cardinality_joins}) as jobs_by_project__query_info__performance_insights__stage_performance_standalone_insights__high_cardinality_joins ;;
     relationship: one_to_many
   }
+
+  # GEMINI
+
+  join: gemini_suggestions {
+    sql_where: ${gemini_suggestions.generated_text} is not null ;;
+    sql_on: ${jobs_by_project.job_id} = ${gemini_suggestions.job_id} ;;
+    relationship: many_to_one
+  }
 }
