@@ -1,5 +1,5 @@
 view: looker_history {
-  sql_table_name: `sam-pitcher-playground.bigquery_velo.looker-shredr-history` ;;
+  sql_table_name: `sam-pitcher-playground.bigquery_velo.looker-shredr-core-history` ;;
 
   dimension: history_id {
     primary_key: yes
