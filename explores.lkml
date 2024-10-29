@@ -140,3 +140,29 @@ explore: quantile_statistics {
   join: parameters {}
 
 }
+
+
+
+# explore: looker_history {  # Start with looker_history as the base explore
+#   join: jobs_by_project {
+#     type: left_outer  # Use left_outer to keep all looker_history entries
+#     sql_on: ${looker_history.history_slug} = ${jobs_by_project__labels.looker_history_slug} ;;
+#     relationship: one_to_one
+#   }
+
+#   join: jobs_by_project__labels {
+#     view_label: "Jobs By Project: Labels"
+#     from: jobs_by_project
+#     sql: LEFT JOIN UNNEST(${jobs_by_project.labels}) as jobs_by_project__labels ;;
+#     relationship: one_to_many
+#   }
+
+#   join: parameters {}
+
+#   always_filter: {
+#     filters: [
+#       parameters.project_name: "sam-pitcher-playground",
+#       parameters.region: "us"
+#     ]
+#   }
+# }
