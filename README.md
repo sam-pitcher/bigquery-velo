@@ -20,7 +20,9 @@ This suite of dashboards and LookML models enables organizations to monitor and 
 ### User Activity Tracking  
 - Understand query patterns by user/Dashboard/Explore.  
 - Detect anomalies or spikes in usage.  
-- Provide insights for training or cost-saving initiatives.  
+- Provide insights for training or cost-saving initiatives.
+
+  <img width="1543" alt="image" src="https://github.com/user-attachments/assets/de343091-9550-4652-a04b-8118eb5d9d38">
 
 ---
 
